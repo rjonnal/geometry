@@ -1,4 +1,5 @@
 from matplotlib import pyplot as plt
+from matplotlib import patches
 import numpy as np
 import os,sys
 import numpy as np
@@ -221,6 +222,13 @@ class Region(Polygon,Point):
         if plot_type.lower().find('center')>-1:
             for lr in self.long_radii:
                 self.center.plot()
+
+    def get_patch(self):
+        points = []
+        for v in self.vertices:
+            points.append([v.x,v.y])
+        points = np.array(points)
+        return patches.Polygon(points)
 
     def computeArea(self):
         return self.get_area()
