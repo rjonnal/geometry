@@ -3,7 +3,8 @@ from matplotlib import patches
 import numpy as np
 import os,sys
 import numpy as np
-
+import matplotlib.colors as colors
+import matplotlib.cm as cmx
 
 DEFAULT_MARKER = 'y-'
 
@@ -151,6 +152,11 @@ class Polygon:
             A = A + t2/2.0
         return Point(float(tempx)/6.0/A,float(tempy)/6.0/A)
 
+    def patch(self,color='r'):
+        vtx = np.array([[p.x,p.y] for p in self.vertices])
+        return patches.Polygon(vtx,fill=True,facecolor=color)
+
+
 class Rectangle(Polygon):
     def __init__(self,Point1,Point2):
         self.upper_left = Point1
@@ -201,6 +207,7 @@ class Region(Polygon,Point):
 
     def get_roundness(self):
         return np.min(self.short_radii)/np.max(self.long_radii)
+
 
     def plot(self,marker=DEFAULT_MARKER,plot_type='edge'):
 
